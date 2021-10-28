@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+
+spring:
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    properties:
+      schema.registry.url: http://schema-registry:8081
+      bootstrap.servers: broker:29092
+
+  application:
+    name: ms-email-producer
+  main:
+    banner-mode: off
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    jmx:
+      exposure:
+        exclude: "*"
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) [%thread] %cyan(%logger{15}) : %msg%n"
+  level:
+    root: ERROR
+    org.springframework.web: INFO
+    com.intellias: DEBUG
+    org.hibernate: ERROR

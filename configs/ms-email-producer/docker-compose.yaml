@@ -1,0 +1,17 @@
+version: "3.1"
+services:
+  ms-email-producer:
+    container_name: ms-email-producer
+    build:
+      context: ../..
+      dockerfile: configs/ms-email-producer/Dockerfile
+    ports:
+      - '8080:8080'
+    networks:
+      confluent-ecosystem:
+        aliases:
+          - ms-email-producer
+
+networks:
+  confluent-ecosystem:
+    external: true

@@ -1,0 +1,32 @@
+plugins {
+    id "java-library"
+    id "com.github.davidmc24.gradle.plugin.avro"
+}
+
+jar {
+    enabled true
+}
+
+dependencies {
+    implementation "org.apache.avro:avro:${avroVersion}"
+//    implementation "org.apache.avro:avro-tools:${avroVersion}"
+}
+
+avro {
+//    stringType = "CharSequence"
+    fieldVisibility = "private"
+//    customConversion org.apache.avro.Conversions.UUIDConversion
+}
+
+java {
+    withSourcesJar()
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+        events "passed", "skipped", "failed"
+    }
+}

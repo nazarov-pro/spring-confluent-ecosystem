@@ -1,0 +1,11 @@
+plugins {
+    id "java-library"
+}
+
+jar {
+    enabled true
+}
+
+dependencies {
+    implementation "javax.validation:validation-api:$javaValidationVersion"
+}

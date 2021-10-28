@@ -1,0 +1,16 @@
+version: "3.1"
+services:
+  ms-email-consumer:
+    build:
+      context: ../..
+      dockerfile: configs/ms-email-consumer/Dockerfile
+    ports:
+      - '8080-8090:8080'
+    networks:
+      confluent-ecosystem:
+        aliases:
+          - ms-email-consumer
+
+networks:
+  confluent-ecosystem:
+    external: true

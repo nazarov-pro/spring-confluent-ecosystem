@@ -1,0 +1,52 @@
+{
+  "name": "EmailMessage",
+  "namespace": "com.intellias.email",
+  "type": "record",
+  "fields": [
+    {
+      "name": "to",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "cc",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": []
+    },
+    {
+      "name": "bcc",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": []
+    },
+    {
+      "name": "content",
+      "type": "string"
+    },
+    {
+      "name": "mimeMessage",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "attachments",
+      "type": {
+        "type": "map",
+        "values": "bytes"
+      },
+      "default": {}
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "default": ""
+    }
+  ]
+}

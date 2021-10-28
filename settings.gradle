@@ -1,0 +1,15 @@
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+rootProject.name = 'spring-confluent-ecosystem'
+include 'common-contract-avro'
+include 'ms-email-producer'
+include 'ms-email-consumer'
+include 'common'
+

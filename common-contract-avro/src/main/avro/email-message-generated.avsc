@@ -1,0 +1,26 @@
+{
+  "name": "EmailMessageGeneratedEvent",
+  "namespace": "com.intellias.email",
+  "type": "record",
+  "fields": [
+    {
+      "name": "body",
+      "type": "EmailMessage"
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "issuer",
+      "type": "string"
+    }
+  ]
+}

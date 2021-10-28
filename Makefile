@@ -32,6 +32,11 @@ confluent-up:
 confluent-down:
 	@docker-compose -f configs/confluent/docker-compose.yaml down
 
+send-email-message:
+	@curl -H "Content-Type: application/json" -X POST "http://localhost:8080/email-messages" -d '{"from":"no-reply@shahinnazarov.com","to":["me@shahinnazarov.com"],"cc":[],"bcc":[],"attachments":{},"content":"Test Content"}'
+
+ms-email-consumer-logs:
+	@docker-compose -f configs/ms-email-consumer/docker-compose.yaml logs --tail=100 --follow
 
 up: confluent-up ms-email-consumer-up ms-email-producer-up
 

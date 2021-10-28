@@ -1,0 +1,18 @@
+syntax = 'proto3';
+
+import "email-message.proto";
+
+option java_multiple_files = true;
+option java_generic_services = true;
+
+package com.intellias.proto;
+
+//=========Events=============
+
+message EmailMessageGeneratedEvent {
+    EmailMessage body = 1;
+    int64 timestamp = 2;
+    string id = 3;
+    string issuer = 4;
+    reserved 5 to 15;
+}

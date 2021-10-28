@@ -1,0 +1,18 @@
+syntax = 'proto3';
+
+package com.intellias.proto;
+
+option java_multiple_files = true;
+option java_generic_services = true;
+
+message EmailMessage {
+  repeated string to = 1;
+  repeated string cc = 2;
+  repeated string bcc = 3;
+  string content = 4;
+  bool mimeMessage = 5;
+  map<string, bytes> attachments = 6;
+  string from = 7;
+  reserved 8 to 15;
+
+}

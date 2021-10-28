@@ -18,6 +18,7 @@ public class SendEmailMessageRequest {
     @NotNull
     @NotEmpty
     private String from;
+    private String subject;
     @NotNull
     @NotEmpty
     private List<String> to;

@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id "java-library"
+    id "com.google.protobuf"
+}
+
+jar {
+    enabled true
+}
+
+dependencies {
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protoBufferCompilerVersion}"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcJavaPluginVersion}"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDirs "$projectDir/src/main/proto"
+        }
+        java {
+            srcDir "$buildDir/generated/source/proto/main/java"
+        }
+    }
+}
+
+processResources.duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+        events "passed", "skipped", "failed"
+    }
+}

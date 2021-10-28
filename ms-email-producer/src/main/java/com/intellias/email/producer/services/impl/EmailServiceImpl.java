@@ -8,6 +8,9 @@ import com.intellias.email.producer.services.EmailService;
 import com.intellias.email.producer.producers.EmailMessageGeneratedEventProducer;
 import java.time.Clock;
 import java.time.Instant;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -36,11 +39,13 @@ public class EmailServiceImpl implements EmailService {
                                 EmailMessage.newBuilder()
                                         .setFrom(request.getFrom())
                                         .setTo(request.getTo())
-                                        .setCc(request.getCc())
-                                        .setBcc(request.getBcc())
-                                        .setAttachments(request.getAttachments())
-                                        .setMimeMessage(request.isMimeMessage())
                                         .setContent(request.getContent())
+                                        .setMimeMessage(request.isMimeMessage())
+                                        .setCc(Optional.ofNullable(request.getCc()).orElse(Collections.emptyList()))
+                                        .setBcc(Optional.ofNullable(request.getBcc()).orElse(Collections.emptyList()))
+                                        .setAttachments(Optional.ofNullable(request.getAttachments())
+                                                .orElse(Collections.emptyMap()))
+                                        .setSubject(Optional.ofNullable(request.getSubject()).orElse(""))
                                         .build()
                         )
                         .build()

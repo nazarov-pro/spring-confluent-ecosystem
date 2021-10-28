@@ -1,17 +1,14 @@
-# Spring Actuator Demo
+# Spring Boot And Confluent Platform
 
+This project created demo purposes of confluent platform especially schema registry.
+The project contains Apache Kafka, Zookeeper, Confluent Schema Registry, Email Producer and Email Consumer 
+Applications. 
 
-The schema registry server can enforce certain compatibility rules when new schemas are registered in a subject. Currently, we support the following compatibility rules.
+High level diagram:
 
-Backward compatibility (default): A new schema is backward compatible if it can be used to read the data written in all previous schemas. Backward compatibility is useful for loading data into systems like Hadoop since one can always query data of all versions using the latest schema.
+![High level diagram](./assets/images/high-level-diagram.png)
 
-Forward compatibility: A new schema is forward compatible if all previous schemas can read data written in this schema. Forward compatibility is useful for consumer applications that can only deal with data in a particular version that may not always be the latest version.
-
-Full compatibility: A new schema is fully compatible if it’s both backward and forward compatible.
-
-No compatibility: A new schema can be any schema as long as it’s a valid Avro.
-
-http://localhost:8081/config
+Note: [Download](./assets/presentation/spring-confluent-ecosystem.pptx) Spring Boot And Confluent Platform Presentation.
 
 ## 1. Requirements
 
@@ -22,33 +19,60 @@ http://localhost:8081/config
 ## 2. Installation
 
 - `make set-up` - for setting up a docker network
-- `make up` - for building & starting spring-actuator-demo, prometheus, grafana apps
-- `make down` - for shutdown spring-actuator-demo, prometheus, grafana apps
+- `make up` - for building & starting apache kafka, apache zookeeper, confluent schema registry, email producer, 
+  email consumer (with 2 replication) apps
+- `make ms-email-consumer-logs ` - all consumers logs will be printed 
+- `make send-email-message ` - it will send request to email producer 
+- `make down` - for shutdown apache kafka, apache zookeeper, confluent schema registry, email producer,
+  email consumer apps
 - `make clean` - for removing the docker network
 
-Ps: Each app also is runnable individually by `make spring-actuator-up` or `make spring-actuator-down`.
+Ps: Each app also is runnable individually by `make ms-email-consumer-up` or `make ms-email-producer-down`.
 
 ## 3. Accessibility & Configuration
 
-- **Spring Actuator Demo** will be available at `http://localhost:8080`
-- **Prometheus** will be available at `http://localhost:9090`
-- **Grafana** will be available at `http://localhost:3000`
+- **Email Producer APP** will be available at `http://localhost:8080`
+- **Zookeeper** will be available at `http://localhost:2181`
+- **Kafka** will be available at `http://localhost:9092`
+- **Schema Registry** will be available at `http://localhost:8081`
 
-Note: **Spring Actuator Demo** contains one custom endpoint for loading application, there are 2 options:
+Schema Registry Compatibility Types:
 
-- for loading CPU (it uses MD5 hashing depending on the rate)
-``curl -o /dev/null -s -w 'Total: %{time_total}s\n' http://localhost:8080/?cpu-load-rate=5000``
-- for loading Memory (it generates bytes depending on the rate) ``curl http://localhost:8080/?memory-load-rate=5000``
+![Schema Registry Compatibility Types](./assets/images/schema-registry-compatibility.png)
 
-Note: Grafana will require authentication please use `admin` `admin` as username and password for 
-signing in.
+Note: The Confluent Schema Registry default compatibility type is BACKWARD.
 
-Choose micrometer Dashboard:
-![Choose micrometer dashboard](./assets/images/choose_micrometer_dashboard.png)
+## 4. Message Formats Benchmark
 
-Micrometer JVM Dashboard:
-![Chose micrometer dashboard](./assets/images/micrometer_dashboard.png)
+Used Data:
+```json
+{
+  "to": [
+    "me@shahinnazarov.com"
+  ],
+  "cc": [],
+  "bcc": [],
+  "content": "Demo",
+  "mimeMessage": false,
+  "attachments": {},
+  "from": "no-reply@shahinnazarov.com"
+}
+```
+Benchmark for size/serialization and deserialization:
 
-For more details please click [here](./assets/docs/spring-actuator.md).
+| Message Format | Size (bytes) | Serialization Time (milliseconds) | Deserialization Time (milliseconds) |
+| -------------- | ------------ | --------------------------------- | ----------------------------------- |
+| protobuffer | 56 | 4 | 0 |
+| apache avro | 56 | 3 | 2 |
+| json | 138 | 7 | 4 |
 
-https://avro.apache.org/docs/1.10.2/spec.html#preamble
+## 5. Credits
+
+[Spring Boot Kafka Docs](https://spring.io/projects/spring-kafka)
+[Schema Registry Docs](https://docs.confluent.io/platform/current/schema-registry/index.html)
+[Apache Avro](https://avro.apache.org/docs/1.10.2/)
+[Proto Buffers](https://developers.google.com/protocol-buffers/docs/overview)
+[Schemas, Contracts, and Compatibility](https://www.confluent.io/blog/schemas-contracts-compatibility/)
+[17 Ways to Mess Up Self-Managed Schema Registry](https://www.confluent.io/blog/17-ways-to-mess-up-self-managed-schema-registry/)
+[Kafka Avro Schema Registry Example](https://www.baeldung.com/spring-cloud-stream-kafka-avro-confluent)
+

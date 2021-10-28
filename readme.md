@@ -68,11 +68,11 @@ Benchmark for size/serialization and deserialization:
 
 ## 5. Credits
 
-[Spring Boot Kafka Docs](https://spring.io/projects/spring-kafka)
-[Schema Registry Docs](https://docs.confluent.io/platform/current/schema-registry/index.html)
-[Apache Avro](https://avro.apache.org/docs/1.10.2/)
-[Proto Buffers](https://developers.google.com/protocol-buffers/docs/overview)
-[Schemas, Contracts, and Compatibility](https://www.confluent.io/blog/schemas-contracts-compatibility/)
-[17 Ways to Mess Up Self-Managed Schema Registry](https://www.confluent.io/blog/17-ways-to-mess-up-self-managed-schema-registry/)
-[Kafka Avro Schema Registry Example](https://www.baeldung.com/spring-cloud-stream-kafka-avro-confluent)
+- [Spring Boot Kafka Docs](https://spring.io/projects/spring-kafka)
+- [Schema Registry Docs](https://docs.confluent.io/platform/current/schema-registry/index.html)
+- [Apache Avro](https://avro.apache.org/docs/1.10.2/)
+- [Proto Buffers](https://developers.google.com/protocol-buffers/docs/overview)
+- [Schemas, Contracts, and Compatibility](https://www.confluent.io/blog/schemas-contracts-compatibility/)
+- [17 Ways to Mess Up Self-Managed Schema Registry](https://www.confluent.io/blog/17-ways-to-mess-up-self-managed-schema-registry/)
+- [Kafka Avro Schema Registry Example](https://www.baeldung.com/spring-cloud-stream-kafka-avro-confluent)
 
